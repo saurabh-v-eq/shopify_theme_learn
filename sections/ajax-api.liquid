@@ -1,0 +1,92 @@
+<div class="showCartCount"></div>
+<script>
+    async function getCart() {
+        const cartRequest = await fetch(window.Shopify.routes.root + 'cart.js');
+        const cart = await cartRequest.json();
+        console.log(cart);
+        const cartContent = document.querySelector('.showCartCount');
+        cartContent.textContent = `cart's total item: ${cart.item_count} `;
+    }
+
+    async function addCart(variantId, quantity){
+        const addToCartRequest = await fetch(window.Shopify.routes.root + 'cart/add.js',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                items: [
+                    {
+                        id: variantId,
+                        quantity: quantity,
+                        properties: {
+                            _test: "test"
+                        }
+                    }
+                ],
+                attributes: {
+                    cart_test: "cart test attribute"
+                }
+            })
+        })
+        window.location.reload();
+    } 
+
+    async function updateCart(){
+        const LINE_ITEM_KEY = "42283892375641:3dfff689de0303d2ae10964e8ba755b3"
+        const addToCartRequest = await fetch('/cart/update.js',{
+            method: 'POST',
+            headers: {  
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                updates:{
+                    [LINE_ITEM_KEY] : 0
+                },
+                attributes: {
+                    cart_test: "cart test attribute"
+                }
+            })
+        })
+        window.location.reload();
+    }
+
+    async function changeCart(){
+        const VARIANT_ID = '42283892375641'
+        const addToCartRequest = await fetch('/cart/change.js',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: VARIANT_ID,
+                quantity: 4
+            })
+        })
+        window.location.reload();
+    }
+
+    async function clearCart(){
+        await fetch('/cart/clear.js')
+    
+        window.location.reload();
+    }
+
+    async function getProductInfo(handle){
+        const productRequest = await fetch(`/products/${handle}.js`);
+        const product = await productRequest.json();
+        console.log(product)
+    }
+</script>
+
+
+{% schema %}
+    {
+        "name": "AJAX API",
+        "presets": [
+            {
+                "name": "AJAX API"
+            }
+        ]
+    }
+{% endschema %}
