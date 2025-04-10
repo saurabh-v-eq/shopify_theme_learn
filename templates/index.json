@@ -9,6 +9,16 @@
  */
 {
   "sections": {
+    "all_products_ajeGkj": {
+      "type": "all_products",
+      "settings": {
+        "products_per_row": 3
+      }
+    },
+    "ajax_api_e9wVXN": {
+      "type": "ajax-api",
+      "settings": {}
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -76,14 +86,73 @@
         "padding_bottom": 36
       }
     },
-    "ajax_api_e9wVXN": {
-      "type": "ajax-api",
-      "settings": {}
+    "collection_list_GzVHei": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_GLtQpc": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "featured_collection_LwRc7P": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "featured_collection_GtNjiQ": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "featured_collection_BGg8t4": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "featured_collection_4AKfpB": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "featured_collection_g3KEtH": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_GLtQpc",
+        "featured_collection_LwRc7P",
+        "featured_collection_GtNjiQ",
+        "featured_collection_BGg8t4",
+        "featured_collection_4AKfpB",
+        "featured_collection_g3KEtH"
+      ],
+      "settings": {
+        "title": "Collections",
+        "heading_size": "h1",
+        "image_ratio": "square",
+        "columns_desktop": 3,
+        "color_scheme": "",
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
+    "all_products_ajeGkj",
     "ajax_api_e9wVXN",
     "image_banner",
-    "featured_collection"
+    "featured_collection",
+    "collection_list_GzVHei"
   ]
 }

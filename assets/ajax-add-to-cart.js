@@ -31,7 +31,7 @@ document.querySelectorAll('.collection-cart-btn').forEach((button) => {
   });
   
   // Updates the cart icon count bubble
-  function updateCartCount() {
+  function updateCartCount() {      
     fetch('/cart.js')
       .then((res) => res.json())
       .then((cart) => {
