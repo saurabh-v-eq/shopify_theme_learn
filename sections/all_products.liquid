@@ -9,7 +9,7 @@
 {% for product in collections.all.products offset: section.settings.products_per_row %}
   {% assign remaining_products = remaining_products | append: product.handle %}
   {% unless forloop.last %}
-    {% assign remaining_products = remaining_products | append: ',' %}
+    {% assign remaining_products = remaining_products | append: ',' %}   {%- comment -%}data-remaining-products="cool-shoes,summer-hat,white-jeans"{%- endcomment -%}
   {% endunless %}
 {% endfor %}
 
@@ -28,42 +28,42 @@
 </div>
 <script>
   class AllProducts extends HTMLElement {
-    index = 0;
+    index = 0; // The index is a counter that tracks how many products have already been loaded when you click the "Load More" button.
     constructor() {
       super();
       this.loadMoreButton = this.querySelector('.button');
       this.productsPerRow = Number.parseInt(this.dataset.productsPerRow);
       this.remainingProducts = this.dataset.remainingProducts.split(',');
-      this.grid = this.querySelector('.grid');
+      this.grid = this.querySelector('.grid'); // Refers to the grid container where product cards will go
 
       this.loadMoreButton.addEventListener('click', this.loadMoreProducts.bind(this));
-      console.log("button found?", this.loadMoreButton);
+      console.log('button found?', this.loadMoreButton);
     }
 
     async loadMoreProducts() {
-        this.loadMoreButton.setAttribute("disabled", "true");
-      const productsToLoad = this.remainingProducts.slice(this.index, this.index + this.productsPerRow);
+      this.loadMoreButton.setAttribute('disabled', 'true'); // Disable the button to prevent multiple clicks:
+      const productsToLoad = this.remainingProducts.slice(this.index, this.index + this.productsPerRow);  // Pick the next set of product handles to load:
 
-      const products = await Promise.all(
+      const products = await Promise.all(   
         productsToLoad.map(async (productHandle) => {
-          const response = await fetch(`/products/${productHandle}?sections=card-product`);
+          const response = await fetch(`/products/${productHandle}?sections=card-product`);  // For each product handle, fetch its section
           const data = await response.json();
-          return data['card-product'];
+          return data['card-product'];  // Shopify returns the rendered HTML of just the 'card-product' section for that product.
         })
       );
-      products.forEach((product) => {
+      products.forEach((product) => {  // Append the HTML into the grid
         this.grid.innerHTML += product;
       });
-      this.index += this.productsPerRow;
+      this.index += this.productsPerRow;  // Update index so the next batch is loaded next time
 
-      if (this.index >= this.remainingProducts.length){
+      if (this.index >= this.remainingProducts.length) {  // If there are no more products, remove the button
         this.loadMoreButton.remove();
-      }else{
-        this.loadMoreButton.removeAttribute("disabled");
-    }
+      } else {
+        this.loadMoreButton.removeAttribute('disabled');
+      }
     }
   }
-  customElements.define('all-products', AllProducts);
+  customElements.define('all-products', AllProducts);  // This tells the browser: whenever you see <all-products>, use the class AllProducts
 </script>
 {% schema %}
 {
