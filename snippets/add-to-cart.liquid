@@ -1,5 +1,12 @@
 {% assign available = product.selected_or_first_available_variant.available %}
 <div class="collection-cart">
+  <div class="quantity-wrapper">
+    <div class="item-qty">
+      <button class="qty-btn minus">-</button>
+      <input type="text" class="input-field" value="1">
+      <button class="qty-btn plus">+</button>
+    </div>
+  </div>
   {% for variant in product.variants %}
     <input type="hidden" value="{{ variant.id }}" id="variantId">
   {% endfor %}
@@ -20,60 +27,28 @@
   <p id="addToCartMsg"></p>
 </div>
 
-<script>
-  document.querySelectorAll('.collection-cart-btn').forEach((button) => {
-    button.addEventListener('click', function () {
-      const variantId = this.getAttribute('data-variant');
-      const messageBox = this.nextElementSibling;
 
-      fetch(window.Shopify.routes.root + 'cart/add.js', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: variantId,
-          quantity: 1,
-        }),
-      })
-        .then((res) => res.json())
-        .then((product) => {
-          messageBox.innerHTML = `<strong>${product.title}</strong> added to cart`;
-          updateCartCount();
-        })
-        .catch((error) => {
-          messageBox.innerText = 'Error adding to cart';
-          console.error('Add to cart failed:', error);
-        });
-    });
-  });
-
-  function updateCartCount() {
-    fetch('/cart.js')
-      .then((res) => res.json())
-      .then((cart) => {
-        let countBubble = document.querySelector('.cart-count-bubble');
-  
-        if (!countBubble && cart.item_count > 0) {
-          const cartIcon = document.querySelector('#cart-icon-bubble');
-          if (cartIcon) {
-            countBubble = document.createElement('div');
-            countBubble.classList.add('cart-count-bubble');
-            cartIcon.appendChild(countBubble);
-          }
-        }
-  
-        if (countBubble) {
-          let countSpan = countBubble.querySelector('span[aria-hidden="true"]');
-          if (!countSpan) {
-            countSpan = document.createElement('span');
-            countSpan.setAttribute('aria-hidden', 'true');
-            countBubble.appendChild(countSpan);
-          }
-          countSpan.textContent = cart.item_count;
-        }
-      });
+<style>
+  .item-qty {
+    display: inline-flex;
+    border: 1px solid #000;
+    height: 40px;
   }
-  
-</script>
 
+  .input-field {
+    width: 30px;
+    text-align: center;
+  }
+
+  .item-qty .qty-btn {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .item-qty .qty-btn,
+  .item-qty .input-field {
+    border: none;
+    outline: none;
+    width: 50px;
+  }
+</style>
