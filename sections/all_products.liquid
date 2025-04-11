@@ -27,6 +27,7 @@
   </all-products>
 </div>
 <script>
+  // Implement of a autonomous custom element
   class AllProducts extends HTMLElement {
     index = 0; // The index is a counter that tracks how many products have already been loaded when you click the "Load More" button.
     constructor() {
@@ -37,7 +38,6 @@
       this.grid = this.querySelector('.grid'); // Refers to the grid container where product cards will go
 
       this.loadMoreButton.addEventListener('click', this.loadMoreProducts.bind(this));
-      console.log('button found?', this.loadMoreButton);
     }
 
     async loadMoreProducts() {

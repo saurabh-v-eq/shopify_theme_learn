@@ -143,6 +143,9 @@
             class="collection{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
           >
             <div class="loading-overlay gradient"></div>
+            <button class="add-selected-to-cart" style="display: none; margin-top: 20px;">
+              Add Selected Products
+            </button>
             <ul
               id="product-grid"
               data-id="{{ section.id }}"
@@ -165,6 +168,7 @@
                     style="--animation-order: {{ forloop.index }};"
                   {% endif %}
                 >
+                  <input type="checkbox" class="product-check" data-variant-id="{{ product.variants.first.id }}">
                   {% render 'card-product',
                     card_product: product,
                     media_aspect_ratio: section.settings.image_ratio,
@@ -181,7 +185,6 @@
                 {%- assign skip_card_product_styles = true -%}
               {%- endfor -%}
             </ul>
-
             {%- if paginate.pages > 1 -%}
               {% render 'pagination', paginate: paginate, anchor: '' %}
             {%- endif -%}

@@ -1,25 +1,27 @@
-{% assign available = product.selected_or_first_available_variant.available %}
-<div class="collection-cart">
-  <div class="quantity-wrapper">
-    <div class="item-qty">
-      <button class="qty-btn minus">-</button>
-      <input type="text" class="input-field" value="1">
-      <button class="qty-btn plus">+</button>
+{% if template == 'index' %}
+  {% assign available = product.selected_or_first_available_variant.available %}
+  <div class="collection-cart">
+    <div class="quantity-wrapper">
+      <div class="item-qty">
+        <button class="qty-btn minus">-</button>
+        <input type="text" class="input-field" value="1">
+        <button class="qty-btn plus">+</button>
+      </div>
     </div>
+    {% for variant in product.variants %}
+    <input type="hidden" value="{{ variant.id }}" id="variantId">
+    {% endfor %}
+    <button type="button" class="collection-cart-btn" data-variant="{{ product.variants.first.id }}" {% unless available
+      %} disabled data-disabled="true" {% endunless %}>
+      {% if available == true %}
+      <span class="add">Add to Cart</span>
+      {% else %}
+      <span class="soldout" style="cursor: no-drop">Add to Cart</span>
+      {% endif %}
+    </button>
+    <p id="addToCartMsg"></p>
   </div>
-  {% for variant in product.variants %}
-  <input type="hidden" value="{{ variant.id }}" id="variantId">
-  {% endfor %}
-  <button type="button" class="collection-cart-btn" data-variant="{{ product.variants.first.id }}" {% unless available
-    %} disabled data-disabled="true" {% endunless %}>
-    {% if available == true %}
-    <span class="add">Add to Cart</span>
-    {% else %}
-    <span class="soldout" style="cursor: no-drop">Add to Cart</span>
-    {% endif %}
-  </button>
-  <p id="addToCartMsg"></p>
-</div>
+{% endif %}
 
 
 <style>
