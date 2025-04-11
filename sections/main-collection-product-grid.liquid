@@ -146,6 +146,7 @@
             <button class="add-selected-to-cart" style="display: none; margin-top: 20px;">
               Add Selected Products
             </button>
+            <p class="msg"></p>
             <ul
               id="product-grid"
               data-id="{{ section.id }}"
@@ -197,7 +198,15 @@
     {{ 'mask-arch.svg' | inline_asset_content }}
   {%- endif -%}
 </div>
-
+<style>
+  button.add-selected-to-cart {
+    height: 35px;
+    background: black;
+    color: white;
+    border: none;
+    cursor:pointer;
+}
+</style>
 {% schema %}
 {
   "name": "t:sections.main-collection-product-grid.name",
