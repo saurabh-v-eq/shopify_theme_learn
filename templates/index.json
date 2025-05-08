@@ -146,6 +146,10 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "recommended_products_rykcFW": {
+      "type": "related-product",
+      "settings": {}
     }
   },
   "order": [
@@ -153,6 +157,7 @@
     "ajax_api_e9wVXN",
     "image_banner",
     "featured_collection",
-    "collection_list_GzVHei"
+    "collection_list_GzVHei",
+    "recommended_products_rykcFW"
   ]
 }

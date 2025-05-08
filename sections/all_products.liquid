@@ -26,6 +26,7 @@
     <button class="button">Load More</button>
   </all-products>
 </div>
+
 <script>
   // Implement of a autonomous custom element
   class AllProducts extends HTMLElement {
@@ -47,7 +48,7 @@
       const products = await Promise.all(   
         productsToLoad.map(async (productHandle) => {
           const response = await fetch(`/products/${productHandle}?sections=card-product`);  // For each product handle, fetch its section
-          const data = await response.json();
+          const data = await response.json();  
           return data['card-product'];  // Shopify returns the rendered HTML of just the 'card-product' section for that product.
         })
       );
@@ -63,7 +64,7 @@
       }
     }
   }
-  customElements.define('all-products', AllProducts);  // This tells the browser: whenever you see <all-products>, use the class AllProducts
+  customElements.define('all-products', AllProducts);  // This tells the browser whenever you see <all-products>, use the class AllProducts
 </script>
 {% schema %}
 {

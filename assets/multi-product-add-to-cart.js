@@ -34,7 +34,7 @@ addButton.addEventListener("click", function () {
     .then((data) => {
       addButton.style.display = "none";
       selectedInputs.forEach((cb) => (cb.checked = false));
-      cartMsg.textContent = `Successfully added to the cart!`;
+      cartMsg.textContent = `${items.length} items Successfully added to the cart!`;
       updateCartCount();
     })
     .catch((error) => {

@@ -1,0 +1,40 @@
+<div class="related">
+  <div class="width">
+    <h2>{{ section.settings.heading }}</h2>
+
+    <div class="related-products"></div>
+  </div>
+</div>
+{% if cart.item_count > 0 %}
+  {% assign relatedId = cart.items[0].product_id %}
+{% else %}
+  {% assign relatedId = 6732544835668 %}
+{% endif %}
+<script>
+  fetch(window.Shopify.routes.root + 'recommendations/products.json?product_id={{ relatedId }}')
+    .then((response) => response.json())
+    .then(({ products }) => {
+      products.forEach((product) => {
+        const html = buildBlock(product);
+        document.querySelector('.related-products').innerHTML += html;
+      });
+    });
+</script>
+{% schema %}
+{
+  "name": "Related products",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Heading",
+      "id": "heading",
+      "default": "You may also like"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Related products"
+    }
+  ]
+}
+{% endschema %}
